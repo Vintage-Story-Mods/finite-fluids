@@ -40,7 +40,7 @@ namespace FiniteWater
 
 		public override void OnAsyncClientParticleTick(IAsyncParticleManager manager, BlockPos pos, float windAffectednessAtPos, float secondsTicking)
 		{
-			// Check if BlockBehaviors is initialized
+
 			BlockBehavior[] blockBehaviors = this.BlockBehaviors;
 			if (blockBehaviors != null)
 			{
@@ -50,13 +50,11 @@ namespace FiniteWater
 				}
 			}
 
-			// Ensure ParticleProperties is initialized and contains at least one element
 			if (this.ParticleProperties == null || this.ParticleProperties.Length == 0)
 			{
 				return;
 			}
 
-			// Random chance for particles, early exit if not selected
 			if (this.api.World.Rand.NextDouble() > (double)this.particleQuantity)
 			{
 				return;
@@ -64,13 +62,11 @@ namespace FiniteWater
 
 			AdvancedParticleProperties bps = this.ParticleProperties[0];
     
-			// Check if base.PushVector is null
 			if (base.PushVector == null)
 			{
 				return;
 			}
 
-			// Initialize particle properties
 			bps.basePos.X = (double)pos.X;
 			bps.basePos.Y = (double)pos.Y;
 			bps.basePos.Z = (double)pos.Z;
@@ -87,7 +83,6 @@ namespace FiniteWater
 			bps.Size.var = 0f;
 			bps.SizeEvolve = EvolvingNatFloat.create(EnumTransformFunction.LINEAR, 0.8f);
 
-			// Spawn the particle
 			manager.Spawn(bps);
 		}
 
